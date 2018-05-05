@@ -1,0 +1,111 @@
+<stack>
+    push()
+    pop()
+    top()
+    isempty() or empty()
+    
+<vector>
+    push_back()
+    erase()
+    .at() []
+    size()
+
+<lists>
+    append()
+    insert()
+    
+Notes: 
+
+foods["The"].push_back("cat") //You don't need to search for if the word exists- if it does, it will work, if it doesn't, it will create it!
+                              //In the code he uses, punctuation is included as part of the word.  
+                              
+                              
+string generate_text_1_string(string& training, int genLength) {
+    //string token;
+    //cout << "cleaning...";
+    //string clean = cleantext(training);
+    
+    
+    
+     cout << "make vector..."
+    //this line blows my mind! 
+    vector<string> tokens { istream_iterator<string>{iss}, istream_iteration<string>{} }; //Makes a vector from the input stream
+    
+    vector<string> tokens;
+    tokens.reserve(RESERVE);
+    while (iss >> token) {
+        tokens.push_back(token);
+    }
+    
+    unordered_map<string, vector<string>> model;
+
+    string initialcontext = "";
+    string context = initialcontext;
+    
+    cout << "make model...";
+    for (auto &s : tokens) {            //The & makes s grab the values (like a pointer) and put them in, without it, it would actually move the data
+        ostringstream contextstream;
+        model[context].push_back(s);
+        context = s;
+   
+    }
+    
+    cout << "make text...";
+    context = initialcontext;
+    ostringstream oss;
+    string next;
+    
+    for (auto i = 0; i < genLength; i++) {          //genLength prevents an infinite loop, it's an input (how many words)
+        next = model[context][rand() % model[context].size()];
+        context = next;
+        oss << next << " ";
+    }
+    
+    return oss.str();
+}
+
+
+
+
+
+
+int counter = 0;
+    for (map<string, vector<string>>::iterator it = fullWordMap.begin(); it != fullWordMap.end(); ++it) {
+        counter++;
+
+        if (counter == 6){
+            for (int i = 0; i < fullWordMap.size(); ++i){
+                cout << this->fullWordMap[i] << ", ";
+            }
+        }
+            
+    }
+    
+    
+    
+    
+    
+    
+    
+#include "VectorInterface.h"
+template <class T>
+class MyVector: public VectorInterface<T>
+{
+
+public:
+
+	MyVector(void) {cout << "In constructor"<<endl;};
+	~MyVector(void) {cout << "In destructor"<<endl;};
+
+	void push_back(T value){cout << "In push_back"<<endl;};
+	
+	/* Insert value after given index */
+	void insertAt(int index, T value){cout << "In insertAt"<<endl;};
+
+	/* Remove the element at index */
+	void remove(int index) {cout << "In remove"<<endl;};
+	
+	T at(int index){cout << "In at"<<endl;};
+
+	int size(){cout << "In size"<<endl; return(0);};
+};
